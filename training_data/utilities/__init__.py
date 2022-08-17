@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
 def draw(images):
 
-    fig = plt.figure()
-    for i in range(1,len(images)+1):
-        fig.add_subplot(1, len(images), i )
-        plt.imshow(images[i-1])
+    combined_image = np.reshape(images, (-1, images.shape[-1]))
+    plt.imshow(combined_image)
+    plt.colorbar()
     plt.show()
 
 import numpy as np
