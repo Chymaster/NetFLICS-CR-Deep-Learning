@@ -109,4 +109,4 @@ with h5py.File('ground_truth.h5','w') as f:
     f.create_dataset('lifetime_ground_truth', data=gt_lifetime)
 # draw(characters[:4])
 
-# https://www.sharedrop.io/rooms/d53795a1-20ad-401c-9829-b3b1b79e19a0
+# https://file.pizza/watercress/chickenmasala/walnuts/ricotta
