@@ -24,9 +24,9 @@ padded_images[:,2:-2,2:-2] = select_images
 # Turn into binary
 binary_selected_images = np.where(padded_images > 0.5*np.max(padded_images), 1, 0)
 
-#############################################################################################################################################
-]# REPLACE, ROTATE AND FLIP IMAGE BEFORE SPLITTING THEM INTO INTENSITY AND LIFETIME IMAGE 
-#####################################################################################################################################################################
+##########################################################################################
+# REPLACE, ROTATE AND FLIP IMAGE BEFORE SPLITTING THEM INTO INTENSITY AND LIFETIME IMAGE #
+##########################################################################################
 # Generate intensity image
 intensity_images = binary_selected_images * np.random.uniform(low = 200, high = 800, size = (binary_selected_images.shape[0],1,1))		# Assign intensity values
 gaussian_intensity_images = np.zeros(intensity_images.shape)							# Gaussian Blur intensity images
@@ -37,7 +37,6 @@ for i in range(len(intensity_images)):
 lifetime = np.random.uniform(low = 0.3, high = 1.2)										# unit in ns
 lifetime_images = np.where(gaussian_intensity_images != 0, 1, 0) * np.random.uniform(low = 0.3, high = 1.2, size = (gaussian_intensity_images.shape[0],1,1))
 #####################################################################################################################################################################
-
 
 ## Combine into new image
 # Combine multiple
