@@ -24,15 +24,26 @@ padded_characters = np.zeros((characters.shape[0],32,32))
 padded_characters[:,2:-2,2:-2] = characters
 characters = padded_characters
 
-# Resize to 128*128
-characters = np.expand_dims(characters,axis=3)      # Add colour dimension because tf resize accepts dim (batch, x, y, colour_channel)
-characters = tf.image.resize(characters,(128,128))  # resize all to 128,128
-# Binarise all
-characters = tf.where(characters > 0.5*np.max(characters), 1, 0).numpy()
+## Resize and Binarise
+# Run in batches of 50000 to avoid GPU memory OOM
+batch = 50000
+imax = (characters.shape[0] // batch) -1
+# Reserve memory on ram to avoid GPU memory OOM
+characters_ram = np.zeros([(imax+1)*batch, 128, 128, 1])
+
+# Add colour dimension because tf resize accepts dim (batch, x, y, colour_channel)
+characters = np.expand_dims(characters,axis=3)     
+
+# Batch resizing and binarising characters
+for i in range(imax):
+    # Resize to 128*128
+    characters_ram[i*50000:(i+1)*50000,:,:,:] = tf.image.resize(characters[i*50000:(i+1)*50000,:,:,:],(128,128))  # resize all to 128,128
+    # Binarise all
+    characters_ram[i*50000:(i+1)*50000,:,:,:] = tf.where(characters_ram[i*50000:(i+1)*50000,:,:,:] > 0.5*np.max(characters), 1, 0)
+
+characters = characters_ram
 # Squeeze dimension back to (batch, x, y)
 characters = np.squeeze(characters, axis=3)        
-
-
 
 ## Generate combined and resized images
 def ground_truth():
