@@ -16,6 +16,9 @@ digits, _ = extract_training_samples('digits')
 letters, _ = extract_training_samples('letters')
 characters =np.concatenate((digits, letters))
 
+np.random.shuffle(characters)
+# characters = characters[:100000]
+
 # Pad from 28*28 to 32*32
 padded_characters = np.zeros((characters.shape[0],32,32))
 padded_characters[:,2:-2,2:-2] = characters
