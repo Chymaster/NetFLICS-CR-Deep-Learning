@@ -34,8 +34,8 @@ for i in range(len(intensity_images)):
 	gaussian_intensity_images[i,:,:] = gaussian_filter(intensity_images[i,:,:], 0.1)
 
 # Generate lifetime image
-lifetime = np.random.uniform(low = 0.3, high = 1.2)										# unit in ns
-lifetime_images = np.where(gaussian_intensity_images != 0, 1, 0) * np.random.uniform(low = 0.3, high = 1.2, size = (gaussian_intensity_images.shape[0],1,1))
+lifetime = np.random.uniform(low = 0.3, high = 1.2, size = (gaussian_intensity_images.shape[0],1,1))									# unit in ns
+lifetime_images = np.where(gaussian_intensity_images != 0, 1, 0) * lifetime
 #####################################################################################################################################################################
 
 ## Combine into new image
