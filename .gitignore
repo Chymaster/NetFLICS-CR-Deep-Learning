@@ -6,3 +6,5 @@
 *.csv
 *.txt
 *.sqlite
+*.vsidx
+*.pyc
