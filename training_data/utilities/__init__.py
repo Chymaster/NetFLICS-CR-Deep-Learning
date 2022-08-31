@@ -15,3 +15,10 @@ def padding(images):
 
 def binarise(array):
     return np.where(array > 0.5*np.max(array), 1, 0)
+
+def read_ground_truth(filename):
+    import h5py
+    with h5py.File('ground_truth.h5','r') as f:
+        gt_intensity = f['intensity_ground_truth']
+        gt_lifetime = f['lifetime_ground_truth']
+    return gt_intensity, gt_lifetime
