@@ -85,6 +85,5 @@ class DataGenerator(object):
             X[i,:,:] = cs_data[:,self.pat_list]
             y1[i,:,:,0] = np.transpose(f['intensity_image'])
             y2[i,:,:,0] = np.transpose(f['lifetime_image'])
-            f.close()
         
         return X, y1, y2
